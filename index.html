@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durga Puja Invite</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            animation: pulse 1s infinite;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: absolute;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .yes-btn {
+            background-color: #28a745;
+            color: white;
+            top: 50%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+        }
+
+        .no-btn {
+            background-color: #dc3545;
+            color: white;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+
+        #message {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffe259;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Would you like to go with me to Durga Puja?</h1>
+    <div id="message"></div>
+    <button class="yes-btn" onclick="respond('yes')">Yes</button>
+    <button class="no-btn" onclick="respond('no')">No</button>
+
+    <script>
+        let emotionalMessages = [
+            "Are you sure? Please reconsider 🥺",
+            "I'm really hoping you'll say yes 😢",
+            "It would mean so much to me! 😔",
+            "Please, just one 'Yes'? 😞",
+            "I promise you'll have fun! 😅"
+        ];
+        let messageIndex = 0;
+
+        function getRandomPosition() {
+            const screenHeight = window.innerHeight - 100; // button height adjustment
+            const screenWidth = window.innerWidth - 100; // button width adjustment
+            const randomY = Math.floor(Math.random() * screenHeight);
+            const randomX = Math.floor(Math.random() * screenWidth);
+            return { x: randomX, y: randomY };
+        }
+
+        function moveNoButton() {
+            const noButton = document.querySelector('.no-btn');
+            const newPos = getRandomPosition();
+            noButton.style.top = `${newPos.y}px`;
+            noButton.style.left = `${newPos.x}px`;
+        }
+
+        function respond(answer) {
+            if (answer === 'yes') {
+                document.querySelector('h1').innerHTML = "Thank you! 😊❤️ You made my day!";
+                document.querySelector('#message').style.display = "none";
+                document.querySelector('.yes-btn').style.display = "none";
+                document.querySelector('.no-btn').style.display = "none";
+            } else {
+                if (messageIndex >= emotionalMessages.length) {
+                    messageIndex = 0; // Reset the loop of emotional messages
+                }
+                document.getElementById('message').innerHTML = emotionalMessages[messageIndex];
+                messageIndex++;
+                moveNoButton(); // Move "No" button to a random position
+            }
+        }
+    </script>
+
+</body>
+</html>
